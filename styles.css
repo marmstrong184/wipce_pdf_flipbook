@@ -1,0 +1,87 @@
+/* FIXME For all these css classes we want to be only targeting elements that are inside the pdf flipbook. */
+
+:root {
+    --color-accent: #ba39ff;
+    --color-accent-muted: #48006e;
+    --color-accent-dark: #29003d;
+    --color-accent-alt: #dc7a6b;
+    --color-footer-decor: #8053a0;
+    --pink: #e48fbc;
+    --gray-light: #f2f2f6;
+    --gray-medium: #eaebeb;
+}
+
+.flipbook-padding {
+    display: flex;
+    align-items: center; /* Vertically centers content */
+    justify-content: center; /* Optionally centers content horizontally */
+}
+
+.flipbook-page-image {
+    cursor: pointer; /* Changes the cursor to indicate it's clickable */
+    width: 30px; /* Adjust size as needed */
+    height: auto; /* Maintains aspect ratio */
+    margin: 10px 0; /* Adds vertical spacing between images */
+}
+
+.flipbook-page-image-right {
+    transform: scaleX(-1);
+}
+
+.flipbook-page-image:hover {
+    opacity: 0.8; /* Slightly dim on hover */
+}
+
+/* I think this needs to be managed by turn js? */
+.flipbook-page-container {
+    width: 100%;
+}
+
+.flipbook-page {
+
+}
+
+.flipbook-bottom {
+
+}
+
+.flipbook-page-button {
+
+}
+
+
+.flipbook-padding {
+
+}
+
+.flipbook-bottom {
+
+}
+
+.flipbook-page-image {
+
+}
+
+.flipbook-page-image-right {
+
+}
+
+.flipbook-page-image-left {
+
+}
+
+/* Remove numeric input arrows for chrome, safari */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Remove numeric input arrows for firefox */
+input[type=number]{
+    -moz-appearance: textfield;
+}
+
+.turn-page {
+    background-color: white;
+}
