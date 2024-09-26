@@ -151,17 +151,16 @@ function PdfFlipbookComponent() { return {
                             //new_canvas.height = new_canvas_container_height
                             let scaling_factor = canvas_container_width / pdf_page_width;
 
-                            // For high PPI devices.
+                            // For high PPI devices, 1 on desktop.
                             const ratio = Math.ceil(window.devicePixelRatio);
-                            //const canvas = document.createElement('canvas');
+
                             new_canvas.width = canvas_container_width * ratio;
                             new_canvas.height = new_canvas_container_height * ratio;
+
                             new_canvas.style.width = `${canvas_container_width}px`;
                             new_canvas.style.height = `${new_canvas_container_height}px`;
-                            new_canvas.getContext('2d').setTransform(ratio, 0, 0, ratio, 0, 0);
-                            console.log('PIXEL RATIO ', ratio)
 
-                            let new_viewport = page.getViewport({scale: scaling_factor});
+                            let new_viewport = page.getViewport({scale: scaling_factor * ratio});
                             // Render PDF page into canvas context
                             let renderContext = {
                                 canvasContext: new_canvas.getContext('2d'),
@@ -232,6 +231,7 @@ function PdfFlipbookComponent() { return {
     template: `
     <!-- FIXME Maybe need book container max width to prevent the page overflowing vertically. -->
     <!-- FIXME Canvas rendering at half resolution on mobile. -->
+    <!-- FIXME When pressing arrow buttons on mobile the imgs get the blue tint. -->
     <div ref="bookContainer" style=" padding: 2px; display: inline-block; width: 100%;">
         <div style="display: flex;">
             <div class="flipbook-padding flipbook-padding-left">
