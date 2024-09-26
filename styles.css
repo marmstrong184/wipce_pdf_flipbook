@@ -58,6 +58,10 @@
 
 }
 
+.flipbook-bottom input {
+    border: 1px solid var(--color-accent-muted);
+}
+
 .flipbook-page-image {
 
 }

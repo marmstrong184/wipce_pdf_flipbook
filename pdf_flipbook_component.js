@@ -69,8 +69,9 @@ function PdfFlipbookComponent() { return {
             for(let i = 0; i< component.render_task_list.length; i++) {
                 // FIXME This is spamming exceptions in log. Alternative to using cancel is using timeouts and clearing the old ones.
                 component.render_task_list[i].cancel();
- 
             }
+
+            component.render_task_list = [];
 
             component.removeAllCanvases();
             component.onBookUpdate(component.turnjsGetCurrentPage());
@@ -148,8 +149,6 @@ function PdfFlipbookComponent() { return {
                             let new_canvas_container_height = canvas_container_width / pdf_page_width_height_ratio
                             new_canvas.width = canvas_container_width
                             new_canvas.height = new_canvas_container_height
-                            //canvas_container.style.height = `${new_canvas_container_height}px`;
-                            //canvas.style.position = 'absolute';
                             let scaling_factor = new_canvas.width / pdf_page_width;
 
                             let new_viewport = page.getViewport({scale: scaling_factor});
@@ -206,11 +205,10 @@ function PdfFlipbookComponent() { return {
             this.pageIndex = max_pages - 1;
             this.pageIndex = this.clampPageIndex(newVal);
 
-            this.removeAllCanvases();
             // TODO Refactor to start at 1, not zero for page number;
-            let page_num = newVal + 1
+            let page_num = newVal + 1;
             this.onBookUpdate(page_num);
-            this.turnjsSetCurrentPage(page_num)
+            this.turnjsSetCurrentPage(page_num);
         },
     },
     computed: {
@@ -222,19 +220,12 @@ function PdfFlipbookComponent() { return {
         },
     },
     template: `
+    <!-- FIXME Maybe need book container max width to prevent the page overflowing vertically. -->
+    <!-- FIXME Canvas rendering at half resolution on mobile. -->
     <div ref="bookContainer" style=" padding: 2px; display: inline-block; width: 100%;">
         <div style="display: flex;">
-            <!--
-                <div class="flipbook-padding flipbook-padding-left">
-                    <img 
-                        src="caret.svg" 
-                        alt="Previous Page" 
-                        @click="previousPage" 
-                        v-bind:class = "(pdf == null || pageIndex <= 0)?'page-button-disabled':'page-button-enabled'"
-                        class="flipbook-page-image flipbook-page-button-left"
-                    />
-                </div>
-            -->
+            <div class="flipbook-padding flipbook-padding-left">
+            </div>
 
             <!-- FIXME Hardcoded width here -->
             <div style="width: 100%;" ref="pageContainerWrapper">
@@ -242,29 +233,34 @@ function PdfFlipbookComponent() { return {
                 </div>
             </div>
 
-            <!--
-                <div class="flipbook-padding flipbook-padding-right">
-                    <img 
-                        src="caret.svg" 
-                        alt="Next Page" 
-                        @click="nextPage" 
-                        v-bind:class = "(pdf == null || pageIndex >= (pdf.numPages - 1))?'page-button-disabled':'page-button-enabled'"
-                        class="flipbook-page-image flipbook-page-image-right"
-                    />
-                </div>
-            -->
+            <div class="flipbook-padding flipbook-padding-right">
+            </div>
         </div>
 
-        <div class="flipbook-bottom" style="display: flex; justify-content: center; align-items: center;">
+        <div class="flipbook-bottom" style="display: flex; justify-content: space-evenly; align-items: center;">
+            <img 
+                src="caret.svg" 
+                alt="Previous Page" 
+                @click="previousPage" 
+                v-bind:class = "(pdf == null || pageIndex <= 0)?'page-button-disabled':'page-button-enabled'"
+                class="flipbook-page-image flipbook-page-button-left"
+            />
             <div>
-                Page &nbsp;
+                <div>
+                    Page &nbsp;
+
+                    <input :value="pageNumber" @change="event => pageIndex = event.target.value - 1" type="number" step="1" min="0" :max="maxPageIndex+1" style="width: 3em; font-size: 1rem;" ref="pageNumberInput">
+
+                    &nbsp;/ {{ pdf ? pdf.numPages : 0 }}
+                </div>
             </div>
-            <div> 
-                <input :value="pageNumber" @change="event => pageIndex = event.target.value - 1" type="number" step="1" min="0" :max="maxPageIndex+1" style="width: 3em; font-size: 1rem;" ref="pageNumberInput">
-            </div>
-            <div>
-                &nbsp;/ {{ pdf ? pdf.numPages : 0 }}
-            </div>
+            <img 
+                src="caret.svg" 
+                alt="Next Page" 
+                @click="nextPage" 
+                v-bind:class = "(pdf == null || pageIndex >= (pdf.numPages - 1))?'page-button-disabled':'page-button-enabled'"
+                class="flipbook-page-image flipbook-page-image-right"
+            />
         </div>
     </div>
     `
