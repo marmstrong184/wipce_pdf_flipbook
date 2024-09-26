@@ -147,9 +147,18 @@ function PdfFlipbookComponent() { return {
                             let canvas_container_width = parseFloat(window.getComputedStyle(canvas_container).width)
                             let pdf_page_width_height_ratio = pdf_page_width / pdf_page_height
                             let new_canvas_container_height = canvas_container_width / pdf_page_width_height_ratio
-                            new_canvas.width = canvas_container_width
-                            new_canvas.height = new_canvas_container_height
-                            let scaling_factor = new_canvas.width / pdf_page_width;
+                            //new_canvas.width = canvas_container_width
+                            //new_canvas.height = new_canvas_container_height
+                            let scaling_factor = canvas_container_width / pdf_page_width;
+
+                            // For high PPI devices.
+                            const ratio = Math.ceil(window.devicePixelRatio);
+                            //const canvas = document.createElement('canvas');
+                            new_canvas.width = canvas_container_width * ratio;
+                            new_canvas.height = new_canvas_container_height * ratio;
+                            new_canvas.style.width = `${canvas_container_width}px`;
+                            new_canvas.style.height = `${new_canvas_container_height}px`;
+                            console.log('PIXEL RATIO ', ratio)
 
                             let new_viewport = page.getViewport({scale: scaling_factor});
                             // Render PDF page into canvas context
