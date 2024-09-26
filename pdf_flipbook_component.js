@@ -232,7 +232,7 @@ function PdfFlipbookComponent() { return {
     <!-- FIXME Maybe need book container max width to prevent the page overflowing vertically. -->
     <!-- FIXME Canvas rendering at half resolution on mobile. -->
     <!-- FIXME When pressing arrow buttons on mobile the imgs get the blue tint. -->
-    <div ref="bookContainer" style=" padding: 2px; display: inline-block; width: 100%;">
+    <div ref="bookContainer" style=" padding: 2px; display: inline-block; width: 100%;" class="flipbook-component-root">
         <div style="display: flex;">
             <div class="flipbook-padding flipbook-padding-left">
             </div>
@@ -248,29 +248,18 @@ function PdfFlipbookComponent() { return {
         </div>
 
         <div class="flipbook-bottom" style="display: flex; justify-content: space-evenly; align-items: center;">
-            <img 
-                src="caret.svg" 
-                alt="Previous Page" 
-                @click="previousPage" 
-                v-bind:class = "(pdf == null || pageIndex <= 0)?'page-button-disabled':'page-button-enabled'"
-                class="flipbook-page-image flipbook-page-button-left"
-            />
+            <button class="btn btn-primary btn-sm" @click="previousPage" :disabled="(pdf == null || pageIndex <= 0)">
+                <img src="caret.svg" alt="Next Page"/>
+            </button>
             <div>
                 <div>
-                    Page &nbsp;
-
-                    <input :value="pageNumber" @change="event => pageIndex = event.target.value - 1" type="number" step="1" min="0" :max="maxPageIndex+1" style="width: 3em; font-size: 1rem;" ref="pageNumberInput">
-
+                    <input :value="pageNumber" @change="event => pageIndex = event.target.value - 1" type="number" step="1" min="0" :max="maxPageIndex+1" style="height: 1.5em; width: 2em; text-align: center;" ref="pageNumberInput">
                     &nbsp;/ {{ pdf ? pdf.numPages : 0 }}
                 </div>
             </div>
-            <img 
-                src="caret.svg" 
-                alt="Next Page" 
-                @click="nextPage" 
-                v-bind:class = "(pdf == null || pageIndex >= (pdf.numPages - 1))?'page-button-disabled':'page-button-enabled'"
-                class="flipbook-page-image flipbook-page-image-right"
-            />
+            <button class="btn btn-primary btn-sm" @click="nextPage" :disabled="(pdf == null || pageIndex >= (pdf.numPages - 1))">
+                <img style="transform: rotate(180deg)" src="caret.svg" alt="Next Page"/>
+            </button>
         </div>
     </div>
     `

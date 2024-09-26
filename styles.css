@@ -1,6 +1,6 @@
 /* FIXME For all these css classes we want to be only targeting elements that are inside the pdf flipbook. */
 
-:root {
+/* :root {
     --color-accent: #ba39ff;
     --color-accent-muted: #48006e;
     --color-accent-dark: #29003d;
@@ -9,7 +9,7 @@
     --pink: #e48fbc;
     --gray-light: #f2f2f6;
     --gray-medium: #eaebeb;
-}
+} */
 
 .flipbook-padding {
     display: flex;
@@ -88,4 +88,9 @@ input[type=number]{
 
 .turn-page {
     background-color: white;
+}
+
+
+.flipbook-component-root .btn img {
+    height: 2em;
 }
