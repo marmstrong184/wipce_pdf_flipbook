@@ -158,6 +158,7 @@ function PdfFlipbookComponent() { return {
                             new_canvas.height = new_canvas_container_height * ratio;
                             new_canvas.style.width = `${canvas_container_width}px`;
                             new_canvas.style.height = `${new_canvas_container_height}px`;
+                            new_canvas.getContext('2d').setTransform(ratio, 0, 0, ratio, 0, 0);
                             console.log('PIXEL RATIO ', ratio)
 
                             let new_viewport = page.getViewport({scale: scaling_factor});
