@@ -43,6 +43,22 @@ function PdfFlipbookComponent() { return {
 
                 component.pdf_aspect_ratio = pdf_page_width / pdf_page_height;
                 
+                function onLeftArrowPress() {
+                    component.previousPage();
+                }
+            
+                function onRightArrowPress() {
+                    component.nextPage();
+                }
+            
+                document.addEventListener('keydown', function(event) {
+                    if (event.key === "ArrowLeft") {
+                        onLeftArrowPress();
+                    } else if (event.key === "ArrowRight") {
+                        onRightArrowPress();
+                    }
+                });
+
                 component.turnjsResize();
             });
 
