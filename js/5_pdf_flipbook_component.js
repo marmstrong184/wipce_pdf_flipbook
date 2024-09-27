@@ -230,8 +230,6 @@ function PdfFlipbookComponent() { return {
     },
     template: `
     <!-- FIXME Maybe need book container max width to prevent the page overflowing vertically. -->
-    <!-- FIXME Canvas rendering at half resolution on mobile. -->
-    <!-- FIXME When pressing arrow buttons on mobile the imgs get the blue tint. -->
     <div ref="bookContainer" style=" padding: 2px; display: inline-block; width: 100%;" class="flipbook-component-root">
         <div style="display: flex;">
             <div class="flipbook-padding flipbook-padding-left">

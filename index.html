@@ -6,25 +6,25 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <title></title>
-  <link rel="stylesheet" href="bootstrap.min.css?v=1.0">
-  <link rel="stylesheet" href="wipce.css?v=1.0">
-  <link rel="stylesheet" href="styles.css?v=1.0">
-  <script type="text/javascript" src="jquery-3.7.1.min.js"></script>
+  <link rel="stylesheet" href="css/bootstrap.min.css?v=1.0">
+  <link rel="stylesheet" href="css/wipce.css?v=1.0">
+  <link rel="stylesheet" href="css/styles.css?v=1.0">
+  <script type="text/javascript" src="js/1_jquery-3.7.1.min.js"></script>
   <!-- Minified verision of turn.js appears to be broken on chrome -->
-  <script type="text/javascript" src="turn.js"></script>
+  <script type="text/javascript" src="js/2_turn.js"></script>
 </head>
 
 <body>
   <div id="vue-root">
     <!-- <pdf-flipbook src="testcontent/compressed.tracemonkey-pldi-09.pdf"></pdf-flipbook> -->
-    <div style="width: 75%;">
+    <div style="width: 100%;">
     <pdf-flipbook src="testcontent/WIPCE2025-Sponsorship-Prospectus.pdf"></pdf-flipbook>
     </div>
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/pdfjs-dist@2.7.570/build/pdf.min.js"></script>
-  <script src="js/vue.global.js"></script>
-  <script src="pdf_flipbook_component.js"></script>
+  <script src="js/4_vue.global.js"></script>
+  <script src="js/5_pdf_flipbook_component.js"></script>
   <script>
     const App = Vue.createApp({})
     
